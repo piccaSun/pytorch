@@ -1,0 +1,25 @@
+· pytorch 1.11.0 学习率更新，优化器更新顺序问题
+
+
+pytorch 1.1.0版本之后，在创建了lr_scheduler对象之后，会自动执行第一次lr更新（可以理解为执行一次scheduler.step()）
+
+因此在使用的时候，需要先调用optimizer.step()，再调用scheduler.step()
+
+如果创建了lr_scheduler对象之后，先调用scheduler.step()，再调用optimizer.step()，则会跳过了第一个学习率的值。
+
+# 调用顺序
+loss.backward()
+optimizer.step()
+scheduler.step()...
+
+跟新学习率时注意根据Loss变化更新
+
+
+· Pytorch出现 raise NotImplementedError
+
+提醒错误，在父类中定义一个方法，知道有这个方法，不知道如何实现或者不想实现，等有人继承他，就得帮他实现，不实现就报错，
+提醒你父类里有一个方法你没实现
+
+a、对齐问题（注意def对齐问题）
+
+b、拼写错误
